@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | RoadGuard</title>
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" 
+          integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" 
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="/static/css/signup_customer.css">
+</head>
+<body>
+    
+    <nav class="nav-bar">
+        <div class="logo">
+            <h2>RoadGuard</h2>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for mechanic shop...">
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <div class="nav-links">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/signup">Signup</a></li>
+            </ul>
+        </div>
+    </nav>
+
+ <!-- Main Signup Form -->
+    <div class="main-content">
+        <div class="signup-form">
+            <h2 class="signup-title">Sign Up as Mechanic Shop</h2>
+            <form action="/signup/mechanic" method="POST">
+                
+                <!-- Owner Name -->
+                <div class="form-group">
+                    <label for="name">Owner Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter owner's full name" required>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter email address" required>
+                </div>
+
+                <!-- Phone -->
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter phone number" required>
+                </div>
+
+                <!-- Shop Name -->
+                <div class="form-group">
+                    <label for="shop_name">Shop Name:</label>
+                    <input type="text" id="shop_name" name="shop_name" placeholder="Enter shop name" required>
+                </div>
+
+                <!-- Shop Address -->
+                <div class="form-group">
+                    <label for="shop_address">Shop Address:</label>
+                    <textarea id="shop_address" name="shop_address" placeholder="Enter complete address" rows="3" required></textarea>
+                </div>
+
+                <!-- Services Provided -->
+                <div class="form-group">
+                    <label for="services">Services Provided:</label>
+                    <input type="text" id="services" name="services" placeholder="E.g. Oil Change, Tire Repair, Battery Jumpstart" required>
+                </div>
+
+                <!-- Latitude -->
+                <div class="form-group">
+                    <label for="latitude">Latitude:</label>
+                    <input type="text" id="latitude" name="latitude" placeholder="Enter shop latitude" required>
+                </div>
+
+                <!-- Longitude -->
+                <div class="form-group">
+                    <label for="longitude">Longitude:</label>
+                    <input type="text" id="longitude" name="longitude" placeholder="Enter shop longitude" required>
+                </div>
+
+                <!-- Hidden Role -->
+                <input type="hidden" name="role" value="mechanic">
+
+                <!-- Submit Button -->
+                <button type="submit">Sign Up</button>
+            </form>
+
+            <p class="login-text">
+                Already have an account? <a href="/login">Log in here</a>
+            </p>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+        <p>&copy; 2024 RoadGuard. All rights reserved.</p>
+        <div class="social-media">
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact Us</a>
+        </div>
+    </footer>
+    <!-- JS for Auto Location -->
+    <script>
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    document.getElementById("latitude").value = position.coords.latitude;
+                    document.getElementById("longitude").value = position.coords.longitude;
+                },
+                function (error) {
+                    alert("Please allow location access to auto-detect your shop location.");
+                    console.error(error);
+                }
+            );
+        } else {
+            alert("Geolocation is not supported by your browser.");
+        }
+    </script>
+</body>
+</html>
