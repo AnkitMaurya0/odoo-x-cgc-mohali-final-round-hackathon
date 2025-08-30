@@ -164,30 +164,6 @@ DEBUG = True  # Set to False in production
 4. Push to branch (`git push origin feature/AmazingFeature`)
 5. Open Pull Request
 
-## 📋 API Endpoints
-
-### Authentication
-- `GET/POST /login` - User authentication
-- `GET /logout` - User logout
-- `GET/POST /signup/customer` - Customer registration
-- `GET/POST /signup/mechanic` - Mechanic registration
-
-### Customer Routes
-- `GET /customer/dashboard` - Customer dashboard
-- `GET /view_shops` - View nearby shops
-- `GET/POST /request_service` - Service request form
-- `GET /my_request` - View request history
-
-### Mechanic Routes
-- `GET /mechanic/dashboard` - Mechanic dashboard
-- `GET/POST /add_employee` - Employee management
-- `GET /employee_list` - View all employees
-- `GET/POST /assign_work/<id>` - Task assignment
-- `GET /work_status` - Monitor all tasks
-
-### Worker Routes
-- `GET /worker_dashboard` - Worker task dashboard
-- `POST /update_work_status/<id>` - Update task status
 
 ## 🐛 Known Issues & Limitations
 
