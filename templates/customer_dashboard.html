@@ -1,39 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Dashboard | RoadGuard</title>
+  <link rel="stylesheet" href="/static/css/cutomer_dashboard.css">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- LeafletJS for Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 <body>
-    <nav class="nav-bar">
-        <div class="logo">
-            <h2>RoadGuard</h2>
-        </div>
-        <div class="search-bar">
-            <input type="text" placeholder="Search for mechanic shop...">
-            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </div>
-        <div class="nav-links">
-            <ul>
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">My Requests</a></li>
-                <li><a href="#">Nearby Shops</a></li>
-                <li><a href="#">Logout</a></li>
-            </ul>
-        </div>
-    </nav>
+  <!-- Navbar -->
+  <nav class="nav-bar">
+    <div class="logo">
+      <h2>RoadGuard</h2>
+    </div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search for mechanic shop...">
+      <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+    <div class="nav-links">
+      <ul>
+        <li><a href="/customer/dashboard">Dashboard</a></li>
+        <li><a href="/my_request">My Requests</a></li>
+        <li><a href="/view_shops">Nearby Shops</a></li>
+        <li><a href="/logout">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
 
-    <section class="hero-section">
-        <div class="hero-content">
-            <h1>Welcome to RoadGuide</h1>
-            <a href="#" class="button">Request a Service</a>
-            <a href="#" class="button">View Nearby Mechanic Shops</a>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1>Welcome to Your Road Side Assistance Dashboard</h1>
+      <a href="/view_shops" class="button">Request a Service</a>
+      <a href="/view_shops" class="button">View Nearby Mechanic Shops</a>
+    </div>
+    <div class="hero-image">
+      <img src="/static/images/roadside.jpg" alt="RoadGuard">
+    </div>
+  </section>
+
+  <!-- Map Section -->
+  <section class="map-section">
+    <h3>Map View</h3>
+    <div id="map"></div>
+  </section>
+
+  <section class="testimonials">
+        <h2>What Our Customers Say</h2> 
+        <div class="testimonial">
+            <p>"RoadGuard saved me during a breakdown. Highly recommend!"</p>
+            <p>- Alex P.</p>
         </div>
-        <div class="hero-image">
-            <img src="/static/images/roadside.jpg" alt="RoadGuide">
+        <div class="testimonial">
+            <p>"Fast and reliable service. The mechanics are top-notch!"</p>
+            <p>- Jamie L.</p>
         </div>
     </section>
-    
+    <footer class="footer">
+        <p>&copy; 2025 RoadGuard. All rights reserved.</p>
+        <div class="social-media">
+
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact Us</a>
+        </div>
+    </footer>
+    <!-- JS for Map -->
+    <script>
+      var map = L.map('map').setView([20.5937, 78.9629], 5); // Default India view
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+
+      // Get user location
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+        var userLat = position.coords.latitude;
+        var userLng = position.coords.longitude;
+
+          L.marker([userLat, userLng]).addTo(map)
+            .bindPopup("You are here").openPopup();
+
+          map.setView([userLat, userLng], 13);
+        });
+      }
+    </script>
+
 </body>
 </html>
+

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request a Service</title>
+    <link rel="stylesheet" href="/static/css/request_form.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" 
+          integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" 
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="nav-bar">
+        <div class="logo">
+            <h2>RoadGuard</h2>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for mechanic shop...">
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <div class="nav-links">
+            <ul>
+                <li><a href="/customer/dashboard">Dashboard</a></li>
+                <li><a href="/my_request">My Requests</a></li>
+                <li><a href="/view_shops">Nearby Shops</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <section class="form-section">
+        <div class="form-container">
+            <h2>Request a Mechanic Service</h2>
+            <form method="POST" action="/request_service?shop_id={{ shop_id }}">
+                <input type="hidden" name="shop_id" value="{{ shop_id }}">
+
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+
+                <label for="issue">Describe Your Issue</label>
+                <textarea id="issue" name="issue" placeholder="E.g. Flat tire, Engine problem, Battery issue..." required></textarea>
+
+                <label for="service_type">Select Service Type</label>
+                <select id="service_type" name="service_type" required>
+                <option value="">--Please choose an option--</option>
+                <option value="mechanic">Mechanic</option>
+                <option value="towing">Towing</option>
+                <option value="battery">Battery Replacement</option>
+
+                <label for="location">Your Location</label>
+                <input type="text" id="location" name="location" placeholder="Auto-detected location" required>
+
+                <button type="button" onclick="getLocation()">Detect My Location</button>
+                <button type="submit" class="submit-btn">Submit Request</button>
+            </form>
+
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2025 RoadGuard. All rights reserved.</p>
+        <div class="social-media">
+
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact Us</a>
+        </div>
+    </footer>
+
+
+
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function showPosition(position) {
+            let lat = position.coords.latitude;
+            let lon = position.coords.longitude;
+            document.getElementById("location").value = `Lat: ${lat}, Lon: ${lon}`;
+        }
+
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("User denied the request for Geolocation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Location information is unavailable.");
+                    break;
+                case error.TIMEOUT:
+                    alert("The request to get user location timed out.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("An unknown error occurred.");
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>

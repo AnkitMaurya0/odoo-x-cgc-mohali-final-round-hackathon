@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Employee | RoadGuard</title>
+  <link rel="stylesheet" href="/static/css/add_employee.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="nav-bar">
+    <div class="logo">
+      <h2>RoadGuard</h2>
+    </div>
+    <ul class="nav-links">
+      <li><a href="/mechanic/dashboard">Dashboard</a></li>
+      <li><a href="{{ url_for('add_employee') }}" class="active">Add Employee</a></li>
+      <li><a href="{{ url_for('logout') }}">Logout</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO / HEADER -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1>Add New Employee</h1>
+      <p>Register a new worker for your shop</p>
+    </div>
+  </section>
+
+  <!-- FORM SECTION -->
+  <section class="section">
+    <div class="form-container">
+      <form action="{{ url_for('add_employee') }}" method="POST" class="employee-form">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter employee name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter employee email" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Set password" required>
+
+        <label for="role">Role</label>
+        <select id="role" name="role" required>
+          <option value="Worker">Worker</option>
+          <option value="Technician">Technician</option>
+          <option value="Helper">Helper</option>
+        </select>
+
+        <button type="submit" class="button">Add Employee</button>
+        <a href="{{ url_for('mechanic_dashboard') }}" class="button secondary">Cancel</a>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>&copy; 2025 RoadGuard. All rights reserved.</p>
+    <div class="social-media">
+      <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#"><i class="fa-brands fa-twitter"></i></a>
+      <a href="#"><i class="fa-brands fa-instagram"></i></a>
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </footer>
+</body>
+</html>

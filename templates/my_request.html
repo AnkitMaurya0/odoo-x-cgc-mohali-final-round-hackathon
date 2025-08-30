@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Requests - RoadGuard</title>
+  <link rel="stylesheet" href="/static/css/my_request.css">
+  <script src="https://kit.fontawesome.com/yourkit.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="nav-bar">
+    <div class="logo">
+      <h2>RoadGuard</h2>
+    </div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search for mechanic shop...">
+      <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+    <div class="nav-links">
+      <ul>
+        <li><a href="/customer/dashboard">Dashboard</a></li>
+        <li><a href="/my_request">My Requests</a></li>
+        <li><a href="/view_shops">Nearby Shops</a></li>
+        <li><a href="/logout">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <h1>My Service Requests</h1>
+    <p>Track your requests and check the current status.</p>
+  </section>
+
+  <!-- Requests List -->
+  <section class="request-list">
+    {% if requests %}
+      <table>
+        <thead>
+          <tr>
+            <th>Shop Name</th>
+            <th>Service</th>
+            <th>Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for req in requests %}
+            <tr>
+              <td>{{ req.shop_name }}</td>
+              <td>{{ req.service_requested }}</td>
+              <td>{{ req.request_date }}</td>
+              <td>
+                {% if req.status == "Pending" %}
+                  <span class="status pending">Pending</span>
+                {% elif req.status == "Accepted" %}
+                  <span class="status accepted">Accepted</span>
+                {% elif req.status == "In Progress" %}
+                  <span class="status progress">In Progress</span>
+                {% elif req.status == "Completed" %}
+                  <span class="status completed">Completed</span>
+                {% elif req.status == "Rejected" %}
+                  <span class="status rejected">Rejected</span>
+                {% else %}
+                  <span class="status">{{ req.status }}</span>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="no-requests">You have not made any requests yet.</p>
+    {% endif %}
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 RoadGuard. All rights reserved.</p>
+    <div class="social-media">
+      <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#"><i class="fa-brands fa-twitter"></i></a>
+      <a href="#"><i class="fa-brands fa-instagram"></i></a>
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </footer>
+</body>
+</html>

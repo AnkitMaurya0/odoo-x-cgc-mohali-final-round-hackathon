@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Worker Dashboard | RoadGuard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/worker_dashboard.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="nav-bar">
+    <div class="logo">
+      <h2>🚗 RoadGuard</h2>
+    </div>
+    <ul class="nav-links">
+      <li><a href="{{ url_for('worker_dashboard') }}" class="active">Dashboard</a></li>
+      <li><a href="{{ url_for('logout') }}">Logout</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1>Welcome, {{ name }}</h1>
+      <p>Here are your assigned service tasks.</p>
+    </div>
+  </section>
+
+  <!-- ===== TASKS SECTION ===== -->
+  <section class="section">
+    <h2>📋 My Assigned Tasks</h2>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Task ID</th>
+            <th>Customer</th>
+            <th>Service</th>
+            <th>Status</th>
+            <th>Update Status</th>
+            <th>Location</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for t in tasks %}
+          <tr>
+            <td>{{ t.id }}</td>
+            <td>{{ t.customer }}</td>
+            <td>{{ t.service }}</td>
+            <td>
+              <span class="status {{ t.status|lower }}">
+                {{ t.status }}
+              </span>
+            </td>
+            <td>
+              <form action="{{ url_for('update_work_status', task_id=t.id) }}" method="POST">
+                <select name="status">
+                  <option value="Pending" {% if t.status == "Pending" %}selected{% endif %}>Pending</option>
+                  <option value="Completed" {% if t.status == "Completed" %}selected{% endif %}>Completed</option>
+                </select>
+                <button type="submit" class="button">Update</button>
+              </form>
+            </td>
+            <td>
+              {% if t.lat and t.lon %}
+                <a href="https://www.google.com/maps?q={{ t.lat }},{{ t.lon }}" target="_blank" class="map-link">
+                  <i class="fa-solid fa-location-dot"></i> View Map
+                </a>
+              {% else %}
+                <span>No location</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="6">No tasks assigned yet.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>&copy; 2025 RoadGuard | All rights reserved.</p>
+    <div class="social-media">
+      <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#"><i class="fa-brands fa-twitter"></i></a>
+      <a href="#"><i class="fa-brands fa-instagram"></i></a>
+    </div>
+  </footer>
+
+</body>
+</html>

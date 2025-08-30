@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Assign Work</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/assign_work.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1><i class="fa-solid fa-user-gear"></i> Assign Work</h1>
+
+    <form action="{{ url_for('assign_work', request_id=svc_req.id) }}" method="POST" class="employee-form">
+
+      <!-- Request info -->
+      <div class="card">
+        <h3>Request Information</h3>
+        <p><strong>Request ID:</strong> {{ svc_req.id }}</p>
+        <p><strong>Customer Name:</strong> {{ svc_req.customer_name }}</p>
+        <p><strong>Description:</strong> {{ svc_req.description }}</p>
+        <p><strong>Status:</strong> {{ svc_req.status }}</p>
+      </div>
+
+      <!-- Employee dropdown -->
+      <div class="form-group">
+        <label for="employee_id">Assign to Employee</label>
+        <select id="employee_id" name="employee_id" required>
+          <option value="">-- Select Employee --</option>
+          {% for emp in employees %}
+            <option value="{{ emp.id }}">{{ emp.name }} ({{ emp.role }})</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="actions">
+        <button type="submit" class="btn primary">
+          <i class="fa-solid fa-check"></i> Assign Work
+        </button>
+        <a href="{{ url_for('mechanic_dashboard') }}" class="btn secondary">
+          <i class="fa-solid fa-xmark"></i> Cancel
+        </a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

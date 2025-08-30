@@ -1,29 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mechanic Dashboard | RoadGuard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/mechanic_dashboard.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+  <!-- NAVBAR -->
+  <nav class="nav-bar">
+    <div class="logo">
+      <h2>RoadGuard</h2>
+    </div>
+    <ul class="nav-links">
+      <li><a href="{{ url_for('mechanic_dashboard') }}" class="active">Dashboard</a></li>
+      <li><a href="{{ url_for('add_employee') }}">Add Employee</a></li>
+      <li><a href="{{ url_for('employee_list') }}">Employee List</a></li>
+      <li><a href="{{ url_for('work_status') }}">Work Status</a></li>
+      <li><a href="{{ url_for('logout') }}">Logout</a></li>
+    </ul>
+  </nav>
 
-    <nav class="nav-bar">
-        <div class="logo">
-            <h2>RoadGuard</h2>
-        </div>
-        <div class="nav-links">
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Logout</a></li>
-            </ul>
-        </div>
-    </nav>
+  <!-- HERO SECTION -->
+  <section class="dashboard-hero">
+    <h1>Welcome, {{ shop.shop_name }}</h1>
+    {% if shop %}
+      <p><strong>Shop:</strong> {{ shop.shop_name }} | <strong>Location:</strong> {{ shop.latitude }}, {{ shop.longitude }}</p>
+    {% else %}
+      <p>No shop registered yet. Please update your profile.</p>
+    {% endif %}
+  </section>
 
-    <div class="main-content">
-        <h1>Welcome to Your Dashboard</h1>
-        <p>Here you can manage your profile, view your bookings, and more.</p>
+  <!-- DASHBOARD CARDS -->
+  <section class="dashboard-cards">
+    <div class="card">
+      <i class="fa-solid fa-user-plus"></i>
+      <h3>Add Employee</h3>
+      <p>Register a new worker to your shop.</p>
+      <a href="{{ url_for('add_employee') }}">Add</a>
     </div>
 
+    <div class="card">
+      <i class="fa-solid fa-users"></i>
+      <h3>Employee List</h3>
+      <p>View and manage your shop employees.</p>
+      <a href="{{ url_for('employee_list') }}">View</a>
+    </div>
+
+    <div class="card">
+      <i class="fa-solid fa-tasks"></i>
+      <h3>Assign Work</h3>
+      <p>Assign tasks to your employees.</p>
+
+      {% if requests %}
+        <ul>
+          {% for req in requests %}
+            <li>
+              Request #{{ req.id }} - {{ req.service_type }}
+              <a href="{{ url_for('assign_work', request_id=req.id) }}">Assign</a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No pending requests.</p>
+      {% endif %}
+    </div>
+
+
+    <div class="card">
+      <i class="fa-solid fa-comment-dots"></i>
+      <h3>Feedback</h3>
+      <p>View feedback received from customers.</p>
+      <a href="{{ url_for('feedback_list') }}">View</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>&copy; 2025 RoadGuard. All rights reserved.</p>
+    <div class="social-media">
+      <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#"><i class="fa-brands fa-twitter"></i></a>
+      <a href="#"><i class="fa-brands fa-instagram"></i></a>
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </footer>
 </body>
 </html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Assign Work | RoadGuard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/assign_work.css') }}">
+</head>
+<body>
+  <h2>Assign Work</h2>
+
+  <form method="POST">
+    <label for="request_id">Select Service Request:</label>
+    <select name="request_id" required>
+      {% for req in requests %}
+        <option value="{{ req['id'] }}">
+          Request #{{ req['id'] }} - {{ req['problem_description'] }}
+        </option>
+      {% endfor %}
+    </select>
+    <br><br>
+
+    <label for="employee_id">Assign To Employee:</label>
+    <select name="employee_id" required>
+      {% for emp in employees %}
+        <option value="{{ emp['id'] }}">{{ emp['name'] }}</option>
+      {% endfor %}
+    </select>
+    <br><br>
+
+    <button type="submit">Assign Task</button>
+  </form>
+</body>
+</html>

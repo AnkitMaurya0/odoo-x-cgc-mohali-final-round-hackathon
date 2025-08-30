@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work Status | RoadGuard</title>
+  <link rel="stylesheet" href="/static/css/work_status.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="nav-bar">
+    <div class="logo">
+      <h2>RoadGuard</h2>
+    </div>
+    <ul class="nav-links">
+      <li><a href="{{ url_for('mechanic_dashboard') }}">Dashboard</a></li>
+      <li><a href="{{ url_for('work_status') }}" class="active">Work Status</a></li>
+      <li><a href="{{ url_for('logout') }}">Logout</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1>Assigned Work Status</h1>
+      <p>Track the progress of tasks assigned to employees.</p>
+    </div>
+  </section>
+
+  <!-- ===== WORK STATUS SECTION ===== -->
+  <section class="section">
+    <h2>Current Work Assignments</h2>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Task ID</th>
+            <th>Employee</th>
+            <th>Customer</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Update Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for task in tasks %}
+          <tr>
+            <td>{{ task.id }}</td>
+            <td>{{ task.employee_name }}</td>
+            <td>{{ task.customer_name }}</td>
+            <td>{{ task.description }}</td>
+            <td>
+              <span class="status {{ task.status|lower }}">
+                {{ task.status }}
+              </span>
+            </td>
+            <td>
+              <form action="{{ url_for('update_work_status', task_id=task.id) }}" method="POST">
+                <select name="status">
+                  <option value="Pending" {% if task.status == "Pending" %}selected{% endif %}>Pending</option>
+                  <option value="In Progress" {% if task.status == "In Progress" %}selected{% endif %}>In Progress</option>
+                  <option value="Completed" {% if task.status == "Completed" %}selected{% endif %}>Completed</option>
+                </select>
+                <button type="submit" class="button">Update</button>
+              </form>
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="6">No work assigned yet.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>&copy; 2025 RoadGuard. All rights reserved.</p>
+    <div class="social-media">
+      <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#"><i class="fa-brands fa-twitter"></i></a>
+      <a href="#"><i class="fa-brands fa-instagram"></i></a>
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+/* ===== BASIC ===== */
+body {
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f9f9f9;
+  color: #333;
+}
+
+/* ===== NAVBAR ===== */
+.nav-bar {
+  background: #007bff;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+}
+.nav-bar .logo h2 { margin: 0; }
+.nav-bar .nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+.nav-bar .nav-links li { margin-left: 20px; }
+.nav-bar .nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+.nav-bar .nav-links a.active,
+.nav-bar .nav-links a:hover { text-decoration: underline; }
+
+/* ===== HERO ===== */
+.hero-section {
+  text-align: center;
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  color: white;
+  padding: 60px 20px;
+}
+.hero-section h1 { margin: 0; font-size: 36px; }
+.hero-section p { margin-top: 10px; font-size: 18px; }
+
+/* ===== TABLE ===== */
+.section { padding: 40px 20px; }
+.section h2 { text-align: center; margin-bottom: 20px; }
+
+.table-container { overflow-x: auto; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+th, td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+th { background: #f4f4f4; }
+
+select {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.button {
+  padding: 6px 12px;
+  margin-left: 5px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.button:hover { background: #0056b3; }
+
+/* ===== STATUS BADGES ===== */
+.status {
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+}
+.status.pending { background: orange; }
+
+.status.completed { background: green; }
+
+/* ===== MAP LINK ===== */
+.map-link {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+.map-link i { margin-right: 5px; }
+.map-link:hover { color: #0056b3; }
+
+/* ===== FOOTER ===== */
+.footer {
+  background: #0056b3;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+.footer .social-media {
+  margin-top: 10px;
+}
+.footer .social-media a {
+  color: #dee5ec;
+  margin: 0 10px;
+  font-size: 18px;
+  text-decoration: none;
+}
+.footer .social-media a:hover { color: #007bff; }

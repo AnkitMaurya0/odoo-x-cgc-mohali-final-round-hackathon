@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nearby Mechanic Shops</title>
+  <link rel="stylesheet" href="/static/css/view_shop.css">
+  <script src="https://kit.fontawesome.com/yourkit.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="nav-bar">
+    <div class="logo">
+      <h2>RoadGuard</h2>
+    </div>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search for mechanic shop...">
+      <button type="button" onclick="filterShops()"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+    <div class="nav-links">
+      <ul>
+        <li><a href="/customer/dashboard">Dashboard</a></li>
+        <li><a href="/my_request">My Requests</a></li>
+        <li><a href="/view_shops">Nearby Shops</a></li>
+        <li><a href="/logout">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <h1>Find Nearby Mechanic Shops</h1>
+    <p>Select distance filter to view shops within range.</p>
+
+    <div class="filter-buttons">
+      <button onclick="applyFilter(5)">Within 5 km</button>
+      <button onclick="applyFilter(10)">Within 10 km</button>
+      <button onclick="applyFilter(15)">Within 15 km</button>
+    </div>
+  </section>
+
+  <!-- Shops List -->
+  <div class="shop-title">
+    <h2>Nearby Available Mechanic Shops</h2>
+  </div>
+  <section class="shop-list">
+    {% if shops %}
+      {% for shop in shops %}
+        <div class="shop-card">
+          <h3>{{ shop.shop_name }}</h3>
+          <p><b>Service:</b> {{ shop.service_provided }}</p>
+          <p><b>Address:</b> {{ shop.shop_address }}</p>
+          <p><b>Phone:</b> {{ shop.phone }}</p>
+          <p><b>Distance:</b> {{ shop.distance }} km</p>
+
+          <!-- Request Service -->
+          <button onclick="window.location.href='/request_service?shop_id={{ shop.id }}'">
+            Request Service
+          </button>
+
+          <!-- Find on Map -->
+          <button onclick="window.open('https://www.google.com/maps/search/?api=1&query={{ shop.latitude }},{{ shop.longitude }}', '_blank')">
+            Find on Map
+          </button>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>No shops found in selected range.</p>
+    {% endif %}
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 RoadGuard. All rights reserved.</p>
+    <div class="social-media">
+      <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#"><i class="fa-brands fa-twitter"></i></a>
+      <a href="#"><i class="fa-brands fa-instagram"></i></a>
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script>
+    // Search filter
+    function filterShops() {
+      let input = document.getElementById("searchInput").value.toLowerCase();
+      let cards = document.querySelectorAll(".shop-card");
+      cards.forEach(card => {
+        let shopName = card.querySelector("h3").innerText.toLowerCase();
+        if (shopName.includes(input)) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+
+    // Distance filter with geolocation
+    function applyFilter(distance) {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          let lat = position.coords.latitude;
+          let lon = position.coords.longitude;
+          window.location.href = `/view_shops?lat=${lat}&lon=${lon}&distance=${distance}`;
+        }, function(error) {
+          alert("Error detecting location: " + error.message);
+        });
+      } else {
+        alert("Geolocation not supported by this browser.");
+      }
+    }
+  </script>
+</body>
+</html>

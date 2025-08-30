@@ -1,0 +1,202 @@
+/* ===========================
+   RESET & GLOBAL STYLES
+=========================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #f4f7fb;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* ===========================
+   NAVBAR
+=========================== */
+.nav-bar {
+  background: #1e1e2f;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #f9c74f;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links li a {
+  color: #ddd;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-links li a:hover,
+.nav-links li a.active {
+  color: #f9c74f;
+}
+
+/* ===========================
+   HERO SECTION
+=========================== */
+.dashboard-hero {
+  background: linear-gradient(135deg, #f9c74f, #f9844a);
+  color: #fff;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.dashboard-hero h1 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+.dashboard-hero p {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* ===========================
+   DASHBOARD CARDS
+=========================== */
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  padding: 40px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  padding: 25px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card i {
+  font-size: 2rem;
+  color: #f9844a;
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #1e1e2f;
+}
+
+.card p {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.card a {
+  display: inline-block;
+  background: #f9844a;
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.card a:hover {
+  background: #f3722c;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Assign Work list inside card */
+.card ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.card ul li {
+  background: #f9f9f9;
+  margin-bottom: 8px;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card ul li a {
+  background: #43aa8b;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.card ul li a:hover {
+  background: #2d6a4f;
+}
+
+/* ===========================
+   FOOTER
+=========================== */
+.footer {
+  background: #1e1e2f;
+  color: #ddd;
+  text-align: center;
+  padding: 25px 20px;
+  margin-top: 40px;
+}
+
+.footer p {
+  margin-bottom: 10px;
+}
+
+.social-media a {
+  margin: 0 8px;
+  font-size: 1.2rem;
+  color: #f9c74f;
+  transition: color 0.3s;
+}
+
+.social-media a:hover {
+  color: #f9844a;
+}
+
+.footer-links {
+  margin-top: 15px;
+}
+
+.footer-links a {
+  color: #bbb;
+  margin: 0 10px;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
