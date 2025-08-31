@@ -130,10 +130,10 @@ def login():
             session["user"] = worker["email"]
             session["name"] = worker["name"]
             session["role"] = "worker"
-            session["worker_id"] = worker["id"]   # 👈 yaha worker id store ho rahi hai
+            session["worker_id"] = worker["id"]   # yaha worker id store ho rahi hai
             session["mechanic_id"] = worker["mechanic_id"]  # worker ka master mechanic
             conn.close()
-            return redirect(url_for("worker_dashboard"))  # 👈 fixed (function name use karo)
+            return redirect(url_for("worker_dashboard"))  # fixed (function name)
 
         conn.close()
         return "Invalid credentials!"
@@ -181,8 +181,8 @@ def mechanic_dashboard():
         shop = cur.fetchone()
 
         requests = []
-        if shop:  # agar mechanic ka shop exist karta hai
-            # Fetch service requests + customer name using JOIN
+        if shop:  
+            
             cur.execute("""
                 SELECT sr.id, sr.service_type, sr.status, c.name AS customer_name
                 FROM service_requests sr
@@ -203,26 +203,26 @@ def mechanic_dashboard():
 
 @app.route("/worker_dashboard")
 def worker_dashboard():
-    # Ensure worker is logged in
+    
     if "role" not in session or session["role"] != "worker":
         return redirect(url_for("login"))
 
     conn = get_db_connection()
     cur = conn.cursor()
 
-    # Assigned tasks fetch karo (worker_id ka use karo)
+    
     cur.execute("""
         SELECT at.id, c.name AS customer_name, sr.service_type, at.status, sr.location
         FROM assigned_tasks at
         JOIN service_requests sr ON at.request_id = sr.id
         JOIN customers c ON sr.customer_id = c.id
         WHERE at.employee_id = ?
-    """, (session["worker_id"],))   # ✅ fixed: worker_id use karna hai
+    """, (session["worker_id"],))   
 
     rows = cur.fetchall()
     conn.close()
 
-    # tasks list ready karo
+    # tasks list
     tasks = []
     for r in rows:
         lat, lon = None, None
@@ -249,7 +249,7 @@ def worker_dashboard():
 
 
 
-# ---------- Request Service ----------
+
 # ---------- Request Service ----------
 @app.route("/request_service", methods=["GET", "POST"])
 def request_service():
@@ -372,10 +372,10 @@ def add_employee():
 
         if existing_user:
             conn.close()
-            flash("⚠️ Email already exists. Please choose another one.", "danger")
+            flash(" Email already exists. Please choose another one.", "danger")
             return redirect(url_for("add_employee"))
 
-        # ✅ Insert new employee
+        # Insert new employee
         cur.execute(
             "INSERT INTO employees (mechanic_id, name, email, password, role) VALUES (?, ?, ?, ?, ?)",
             (mechanic_id, name, email, hashed_password, role)
@@ -383,7 +383,7 @@ def add_employee():
         conn.commit()
         conn.close()
 
-        flash("✅ Employee added successfully!", "success")
+        flash(" Employee added successfully!", "success")
         return redirect(url_for("employee_list"))
 
     return render_template("add_employee.html")
@@ -436,7 +436,7 @@ def assign_work(request_id):
             "Assigned"
         ))
 
-        # service request status update भी कर दें
+        # service request status update 
         cur.execute("UPDATE service_requests SET status=? WHERE id=?", ("Assigned", request_id))
 
         conn.commit()
@@ -480,7 +480,7 @@ def work_status():
 @app.route("/update_work_status/<int:task_id>", methods=["POST"])
 def update_work_status(task_id):
     if "role" not in session or session["role"] != "worker":
-        return redirect(url_for("login"))  # agar worker login nahi hai to hi login bhejo
+        return redirect(url_for("login"))
 
     status = request.form.get("status")
 
@@ -490,7 +490,7 @@ def update_work_status(task_id):
     conn.commit()
     conn.close()
 
-    flash("✅ Task status updated successfully!", "success")
+    flash(" Task status updated successfully!", "success")
     return redirect(url_for("worker_dashboard"))
 
 
@@ -507,7 +507,7 @@ def update_task_status(task_id):
     conn.commit()
     conn.close()
 
-    # 🔥 Redirect back to mechanic dashboard instead of login
+    # Redirect back to mechanic dashboard instead of login
     return redirect(url_for("mechanic_dashboard"))
 
 
@@ -565,7 +565,7 @@ def delete_employee(employee_id):
     conn.commit()
     conn.close()
     
-    flash("🗑️ Employee deleted successfully!", "success")
+    flash(" Employee deleted successfully!", "success")
     return redirect(url_for("employee_list"))
 
 
